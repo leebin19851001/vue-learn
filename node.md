@@ -112,3 +112,31 @@ textContent vs innerText
 - 更新元素的innerHtml
 - 容易受XSS攻击
 - 在可信内容上使用 不用在用户提交的内容上
+
+
+# 条件渲染
+- 根据某一个条件，判断是否要展示某一个元素
+
+## v-if
+
+## v-else-if
+
+## v-else
+```js
+  if() {
+     
+  } else if () {
+
+  } else {
+
+  }
+```
+
+# v-show
+- 控制元素隐藏或显示，与v-if作用类似
+
+v-if vs v-show
+1. v-if是惰性的，如果在初始渲染时条件为假，则什么也不做，知道第一次条件变为真时才会开始渲染条件块。v-show则不管初始条件是什么，元素总是会被渲染，并且基于css进行切换
+2. v-if有更高的切换开销，v-show有更高的初始渲染开销，如果需要非常频繁的进行切换则使用v-show比较好，如果运行时条件很少改变，则v-if较好
+3. v-show 不支持 template元素
+4. v-show 不支持 v-else
