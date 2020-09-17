@@ -74,3 +74,41 @@ if(typeof Promise !== 'undefined') {
 - 劣势
 1. 需要递归观察
 2. 监听不到对象的增、删属性
+
+
+# Vue相关指令
+- 具有特殊含义，拥有特殊功能的 特性
+- attribute 特性
+- 前缀 v-
+
+
+## v-pre
+- 跳过元素和他的子元素的编译过程
+- 跳过没有指令的节点，加速编译
+- 使用不多
+
+## v-cloak
+- 一直保持在元素上，知道编译结束
+- 解决闪烁问题
+- 使用不多
+
+## v-once
+- 只渲染一次
+
+## v-text
+- 更新元素的textContent（性能较好，不触发重排重绘）
+- 替换元素中所有的文本
+- 优先级高于插值表达式
+
+textContent vs innerText
+- 相同：替换子节点所有内容
+- 不同： 
+1. textContent 能获取子节点所有文本元素，innerText不能获取；
+2. innerText受css影响，不能获取影藏元素文本
+3. innerText触发重拍
+4. textContent 标志方法， innerText IE引入
+
+## v-html
+- 更新元素的innerHtml
+- 容易受XSS攻击
+- 在可信内容上使用 不用在用户提交的内容上
