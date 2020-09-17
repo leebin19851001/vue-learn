@@ -63,3 +63,14 @@ if(typeof Promise !== 'undefined') {
 >增、删对象
 1. vm.$set(要改谁，改什么，改成啥)  Vue.set(要改谁，改什么，改成啥)
 2. vm.$delete(对象，属性)
+
+
+# 扩展_剖析Vue响应式原理
+- data(Object) Vue 数据 
+- 监听(Object.definepPoperty)这个对象的改
+- 渲染
+
+
+- 劣势
+1. 需要递归观察
+2. 监听不到对象的增、删属性
