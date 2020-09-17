@@ -140,3 +140,27 @@ v-if vs v-show
 2. v-if有更高的切换开销，v-show有更高的初始渲染开销，如果需要非常频繁的进行切换则使用v-show比较好，如果运行时条件很少改变，则v-if较好
 3. v-show 不支持 template元素
 4. v-show 不支持 v-else
+
+# v-bind
+- 动态的绑定一个或多个特性
+- :后为传递的参数
+- 动态特性名 2.6.0版本后支持
+- 缩写为':'
+- v-bind 无参数，且绑定一个对象，键值对为特性
+
+## 绑定class
+- 对象语法: <div id="app" :class="{red: isRed, green: isGreen}"></div>
+- 数组语法: <div id="app" :class="[isRed, isGreen]"></div>
+- 可以再数组语法中使用对象语法
+
+## 绑定style
+- 对象语法: <div :style="{color:'red', width: '100px', 'background-color': 'yellow'}">测试文字</div>  or <div :style="styleObj">测试文字</div>
+- 数组语法: <div :style="[styleA, styleB]">测试文字</div>
+- 自动添加前缀
+- 多重值
+
+- 修饰符
+v-bind.xx
+- camel: vue会将大写字母变小写，camel解决这个问题，保持字母大小写不变
+- prop: 用于绑定dom属性
+- sync
