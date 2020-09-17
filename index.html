@@ -7,25 +7,21 @@
   <title>Document</title>
 </head>
 <body>
-  <!-- <div id="app" :class="[isRed, isGreen]" class="redClass"></div> -->
   <div id="app">
-    <!-- <div :style="{color:'red', width: '100px', 'background-color': 'yellow'}">测试文字</div> -->
-    <!-- <div :style="styleObj">测试文字</div> -->
-    <div :style="[styleA, styleB]">测试文字</div>
+    <button v-on:click="atack">按钮</button>
   </div>
   <script>
     const vm = new Vue({
       el: '#app',
       data: {
-        isRed: 'redClass',
-        isGreen: 'greenClass',
-        styleObj: {
-          color: 'red',
-          width: '100px',
-          backgroundColor: 'blue'
+
+      },
+      methods: {
+        atack: function() {
+          console.log("点击了button")
         }
       }
-    })
+    });
   </script>
 </body>
 </html>
