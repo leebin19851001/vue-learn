@@ -8,17 +8,31 @@
 </head>
 <body>
   <div id="app">
-    <button v-on:click="atack">按钮</button>
+    <ul>
+      <!-- <li v-for="(person, index) in persons"> {{ person }} --- {{  index  }}</li> -->
+      <!-- <li v-for="item in 10">{{ item}}</li> -->
+      <li v-for=" (person, index) in persons" :key="person.name">
+        {{  person.name }}
+        <input type="text"/>
+        <button @click="handleClick(index)">下移</button>
+      </li>
+    </ul>
   </div>
   <script>
     const vm = new Vue({
       el: '#app',
       data: {
-
+        persons: [
+          {name: 'zhdngsan',age: 19},
+          {name: 'lisi',age: 17},
+          {name: 'wangwu',age: 33}
+        ]
       },
       methods: {
-        atack: function() {
-          console.log("点击了button")
+        handleClick (index) {
+          let item = this.persons.splice(index, 1);
+          this.persons.splice(index + 1, 0,...item);
+          console.log(item)
         }
       }
     });

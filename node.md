@@ -229,8 +229,28 @@ v-bind.xx
 - 精确控制
 - 2。5.0+
 
-### 鼠标按键修饰符
+## 鼠标按键修饰符
 .left
 .right
 .middle
 2.2.0+
+
+
+# 列表渲染 v-for
+- 利用v-for，基于数据多次渲染元素
+
+## 数组
+- <li v-for="(person, index) in persons"> {{ person }} --- {{  index  }}</li>
+
+## 对象
+- <li v-for="(person, key, index) in persons"> {{ person }} --- {{  index  }}</li>
+
+## 数字
+- <li v-for="item in 10">{{ item  }}</li>
+
+## 字符串
+- <li v-for="item in 'string'">{{ item  }}</li>
+
+key 唯一 string/number
+
+不建议使用index左右key的值
