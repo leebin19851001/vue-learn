@@ -4,38 +4,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="./vue.js"></script>
+  <link rel="stylesheet" href="./index.css">
   <title>Document</title>
 </head>
 <body>
   <div id="app">
-    <ul>
-      <!-- <li v-for="(person, index) in persons"> {{ person }} --- {{  index  }}</li> -->
-      <!-- <li v-for="item in 10">{{ item}}</li> -->
-      <li v-for=" (person, index) in persons" :key="person.name">
-        {{  person.name }}
-        <input type="text"/>
-        <button @click="handleClick(index)">下移</button>
-      </li>
-    </ul>
+    <div class="goods" v-for="(goods, goodsIndex) in goodsList" :key="goods.id">
+      <div class="title">{{ goods.title }}</div>
+      <ul class="type-list">
+        <li class="type" 
+            :class="{active:typeIndex === goods.index}" 
+            v-for="(type, typeIndex) in goods.typeList" 
+            @click="handleClick(typeIndex, goods, type, goodsIndex)"
+            :key="type"> {{ type }} </li>
+      </ul>
+    </div>
+
+    <div class="choose-type">
+      <div>已选条件:</div>
+      <span v-if="!showFilterGoods" class="no-goods">暂时没有选择过滤条件</span>
+      <ul v-else class="filter-list">
+        <li v-for="(goods, goodsKey) in filterList">{{ goods }}<span @click="deleteFliterGoods(goodsKey)" class="delete-goods">X</span></li>
+      </ul>
+    </div>
   </div>
   <script>
     const vm = new Vue({
       el: '#app',
       data: {
-        persons: [
-          {name: 'zhdngsan',age: 19},
-          {name: 'lisi',age: 17},
-          {name: 'wangwu',age: 33}
+        filterList:{},
+        showFilterGoods: false,
+        goodsList: [
+          {
+            title: '上装',
+            typeList:['全部','针织衫','毛呢外套','T恤','羽绒服','棉衣','卫衣'],
+            id: 1
+          },
+          {
+            title: '裤装',
+            typeList:['全部','牛仔裤','休闲裤','打底裤','哈伦裤'],
+            id: 2
+          },
+          {
+            title: '裙装',
+            typeList:['全部','连衣裙','半身裙','长袖连衣裙','中长款连衣裙'],
+            id: 3
+          }
         ]
       },
       methods: {
-        handleClick (index) {
-          let item = this.persons.splice(index, 1);
-          this.persons.splice(index + 1, 0,...item);
-          console.log(item)
+        handleClick (typeIndex, goods, type, goodsIndex) {
+          if (typeIndex === 0 ) {
+            return 
+          }
+          this.showFilterGoods = true;
+          goods.index = typeIndex;
+          this.$set(this.filterList, goodsIndex, type)
+          console.log(this.filterList)
+        },
+        deleteFliterGoods (goodsKey) {
+          this.$delete(this.filterList,goodsKey);
+          this.goodsList[goodsKey].index = 0;
+          this.changeShowFilter();
+        },
+        changeShowFilter () {
+          const filterString = JSON.stringify(this.filterList);
+          this.showFilterGoods =  filterString !== '{}';
         }
       }
     });
+
+    vm.goodsList.forEach( item => vm.$set(item, 'index', 0))
   </script>
 </body>
 </html>
