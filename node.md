@@ -174,3 +174,63 @@ v-bind.xx
   - 轻松定位
   - 不需要手动绑定事件， js内非常纯粹的逻辑
   - 自动删除事件监听/事件处理
+
+  # v-on指令的修饰符
+
+  ## 事件修饰符
+
+  ### .stop
+  - 阻止事件冒泡
+
+  ### .prevent
+  - 阻止默认事件
+
+  ### .capture
+  - 开启事件捕获模式
+
+  ### .self
+  - 只有点击绑定元素才触发
+
+  ### .noce
+  - 只触发执行一次
+
+  ### .passive
+  - 设置addEventListeners passive 选项
+  - 声明不阻止任何默认事件，提升移动端性能
+  - 2.3.0+
+
+### 注意
+1. 修饰符顺序会影响效果
+2. passive 和 prevent 不能同时使用
+
+## 按键修饰符
+- @keyup.enter
+
+## 按键码
+- @keyup.13
+
+.enter
+.tab
+.esc
+.delete
+.space
+.up
+.left
+.right
+.down
+
+## 系统按键修饰
+.ctrl
+.alt
+.shift
+.meta
+
+.exact
+- 精确控制
+- 2。5.0+
+
+### 鼠标按键修饰符
+.left
+.right
+.middle
+2.2.0+
