@@ -254,3 +254,5 @@ v-bind.xx
 key 唯一 string/number
 
 不建议使用index左右key的值
+
+
