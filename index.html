@@ -7,12 +7,40 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <input type="number" v-model.number.lazy="num1">
+    <select v-model="type">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select>
+    <input type="number" v-model.number.lazy="num2">
+    <button @click="jisuan">=</button>
+    <span>{{ result }}</span>
+  </div>
   <script>
     const vm = new Vue({
       el: '#app',
       data: {
+        num1: 0,
+        type: '+',
+        num2: 0,
+        result: 0
+      },
+      methods: {
+        jisuan () {
+          if (this.type === '+') {
+            this.result = this.num1 + this.num2;
+          } else if (this.type === '-') {
+            this.result = this.num1 - this.num2;
+          } else if (this.type === '*') {
+            this.result = this.num1 * this.num2;
+          } else {
+            this.result = this.num1 / this.num2;
+          }
 
+        }
       }
     });
   </script>
