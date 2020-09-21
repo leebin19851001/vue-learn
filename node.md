@@ -254,3 +254,25 @@ v-bind.xx
 key 唯一 string/number
 
 不建议使用index左右key的值
+
+
+# v-model指令
+可以在表单元素上创建双向数据绑定
+本质上是语法糖
+
+## input
+  input[type='text']]        @input :value
+  inout[type='checkbox']     @change :checked
+  inout[type='radio']     @change :checked
+## textarea
+  @input :value
+## select
+
+## 修饰符
+
+### .lazy
+  改为监听change事件
+### .number
+  输入值类型变味数字类型
+### .trim
+  去掉两端空格
