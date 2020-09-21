@@ -16,7 +16,7 @@
       <option value="/">/</option>
     </select>
     <input type="number" v-model.number.lazy="num2">
-    <button @click="jisuan">=</button>
+    <button @click="calculation">=</button>
     <span>{{ result }}</span>
   </div>
   <script>
@@ -29,15 +29,22 @@
         result: 0
       },
       methods: {
-        jisuan () {
-          if (this.type === '+') {
-            this.result = this.num1 + this.num2;
-          } else if (this.type === '-') {
-            this.result = this.num1 - this.num2;
-          } else if (this.type === '*') {
-            this.result = this.num1 * this.num2;
-          } else {
-            this.result = this.num1 / this.num2;
+        calculation () {
+          const {type, num1, num2 } = this;
+          
+          switch(type) {
+            case '+':
+              this.result = num1 + num2;
+              break
+            case '-':
+              this.result = num1 - num2;
+              break
+            case '*':
+              this.result = num1 * num2;
+              break
+            case '/':
+              this.result = num1 / num2;
+              break
           }
 
         }
