@@ -4,19 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="./vue.js"></script>
-  <link rel="stylesheet" href="./index.css">
   <title>Document</title>
 </head>
 <body>
   <div id="app">
-
+    {{  msg }}
   </div>
 
   <script>
     const vm = new Vue({
       el: '#app',
       data: {
-        
+        msg: 'adfadf '
+      },
+      methods: {
+        msgChange() {
+          console.log('msg的值变了')
+        }
+      },
+      watch: {
+        msg: function (newVal, oldVal) {
+          console.log('msg的值变了')
+          console.log(newVal, oldVal)
+        }
       }
     })
   </script>
