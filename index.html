@@ -22,6 +22,7 @@
     </div>
     <div class="upload-btn" @click="handleUpload">上传</div>
     <div class="show-btn" @click="handleShow">显示人物信息</div>
+    <button @click="handleCancelGet">取消get请求</button>
     <ul class="person-list" v-if="personList.length">
       <li class="person" v-for="person in personList">
         <span>{{ person.name }}</span>
@@ -31,25 +32,46 @@
   </div>
 
   <script>
+    // axios.defaults.baseURL = 'https://developer.duyiedu.com/vue';
+    axios.defaults.baseURL = 'http://127.0.0.1:12306';
 
-    axios.defaults.baseURL = 'https://developer.duyiedu.com/vue';
-    // axios.defaults.timeout = 1000;
+    axios.interceptors.request.use(config => {
 
-    // a 'https://developer.duyiedu.com/vue/a'
-    // b 'https://developer.duyiedu.com/vue/b'
-
-    const instance = axios.create({
-      baseURL: 'https://developer.duyiedu.com/vue'
+      // if(config.method === 'get') {
+      //   // ...
+      // } else if(config.method === 'post') {
+      //   // ..
+      // }
+      return config;
+    }, error => {
+      alert('xxxx');
+      return Promise.reject(error);
     });
 
-    const aInstance = axios.create({
-      baseURL: 'https://developer.duyiedu.com/vue/a'
-    })
+    const interceptor = axios.interceptors.response.use(response => {
+      if(response.status === 200) {
+        return response.data;
+      } else {
+        // ...
+      }
+    }, error => {
+      if(error.response) {
+        console.log('响应时错误');
+      } else if(error.request) {
+        // 请求时错误
+        console.log('请求时错误');
+      } 
+      // console.log(error.request);
+      // console.log(error.response);
+      return Promise.reject(error);
+    });
 
-    const bInstance = axios.create({
-      baseURL: 'https://developer.duyiedu.com/vue/b'
-    })
+    // axios.interceptors.response.eject(interceptor);
 
+    const instance = axios.create();
+    instance.interceptors.request.use();
+
+    const source = axios.CancelToken.source();
 
     const vm = new Vue({
       el: '#app',
@@ -61,66 +83,45 @@
       },
       methods: {
         handleUpload () {
-          const { name, mail  } = this;
-          axios.post('/setUserInfo', { name, mail }, {
-            baseURL: 'https://developer.duyiedu.com/vue',
-          }).then(res => {
-            this.msg = res.data.msg;
+          axios.post('setUserInfo', {
+            name: 'shan',
+            mail: 'shan@qq.com'
           })
         },
         handleShow () {
-          // axios({
-          //   method: 'get',
-          //   baseURL: 'https://developer.duyiedu.com/vue',
-          //   url: '/getUserInfo'
-          // }).then(res => {
-          //   this.msg = res.data.msg;
-          //   this.personList = res.data.data;
-          // })
+          axios.get('/getUserInfo', {
+            cancelToken: source.token
+          }).then(res => {
+            console.log(res);
+          }).catch(error => {
+            // console.log(error.request); // 请求时错误
+            // console.log(error.response); // 响应时错误
 
-          // axios('/getUserInfo', {
-          //   method: 'get',
-          //   baseURL: 'https://developer.duyiedu.com/vue',
-          // }).then(res => {
-          //   this.msg = res.data.msg;
-          //   this.personList = res.data.data;
-          // })
+            // if(error.response) {
+            //   const { status } = error.response;
 
-          // axios.get('/getUserInfo', {
-          //   baseURL: 'https://developer.duyiedu.com/vue',
-          // }).then(res => {
-          //   this.msg = res.data.msg;
-          //   this.personList = res.data.data;
-          // })
+            //   switch (status) {
+            //     case 404: 
+            //       alert('url地址错误');
+            //       break;
+            //     case 401:
+            //       alert('xxx')
 
-          // axios.get('/getUserInfo').then(res => {
-          //   this.msg = res.data.msg;
-          //   this.personList = res.data.data;
-          // })
-
-          // instance.get('/getUserInfo').then(res => {
-          //   this.msg = res.data.msg;
-          //   this.personList = res.data.data;
-          // })
-
-          // aInstance.get('/xxx');
-          // bInstance.get('/xxx');
-
-          // axios.get('/a').then(res => {
-
-          // });
-
-          // axios.get('/b')
-
-          // axios.get('/c');
-
-          axios.all([
-            axios.post('/setUserInfo', {name: 'shanshan', mail: 'haah@qq.com'}),
-            axios.get('/getUserInfo'),
-          ]).then(axios.spread((postRes, getRes ) => {
-            console.log(postRes, getRes);
-            this.personList = getRes.data.data;
-          }));
+            //   }
+            // } else if(error.request) {
+            //   // console.log('请求时错误');
+            // } else {
+            //   console.log(error.message);
+            // }
+            // error.request
+            // error.response
+            // console.log(error);
+            // const msg = error.message;
+            // alert(msg);
+          })
+        },
+        handleCancelGet () {
+          source.cancel('取消请求');
         }
       },
       watch: {
